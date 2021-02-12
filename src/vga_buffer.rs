@@ -78,7 +78,7 @@ struct Buffer {
 pub struct Writer {
     column_position: usize,
     color_code: ColorCode,
-    buffer: &'static mut Buffer,
+    buffer: &'static mut Buffer,    
 }
 
 impl Writer {
@@ -89,7 +89,7 @@ impl Writer {
                 if self.column_position >= BUFFER_WIDTH {
                     self.new_line();
                 }
-
+                
                 let row = BUFFER_HEIGHT - 1;
                 let col = self.column_position;
 
