@@ -3,9 +3,11 @@
 #![feature(custom_test_frameworks)]
 #![test_runner(crate::test_runner)]
 #![reexport_test_harness_main = "test_main"]
+#![feature(abi_x86_interrupt)]
 
 pub mod serial;
 pub mod vga_buffer;
+pub mod interrupts;
 
 use core::panic::PanicInfo;
 
@@ -53,6 +55,10 @@ pub fn test_panic_handler(info: &PanicInfo) -> ! {
     serial_println!("Error: {}\n", info);
     exit_qemu(QemuExitCode::Failed);
     loop {}
+}
+
+pub fn init() {
+    interrupts::init_idt();
 }
 
 // `cargo test`のときのエントリポイント
